@@ -1,0 +1,168 @@
+/* Reset e configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #121c21;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.main-container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.form-card {
+    background-color: transparent;
+    padding: 40px 60px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Título */
+.form-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 35px;
+    margin-bottom: 0;
+    font-feature-settings: 'dlig';
+}
+
+/* Labels */
+.form-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 24px;
+    margin-bottom: 8px;
+    padding: 0 16px;
+    font-feature-settings: 'dlig';
+}
+
+/* Inputs customizados */
+.custom-input {
+    background-color: #1a2b33;
+    border: 1px solid #335466;
+    border-radius: 8px;
+    height: 56px;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    background-color: #1a2b33;
+    border-color: #1294d4;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.2rem rgba(18, 148, 212, 0.25);
+}
+
+.custom-input::placeholder {
+    color: #91b8c9;
+    opacity: 0.6;
+}
+
+/* Ajuste do espaçamento dos form groups */
+.mb-3 {
+    padding: 12px 16px;
+}
+
+.mb-4 {
+    padding: 12px 16px;
+}
+
+/* Botão customizado */
+.custom-btn {
+    background-color: #1294d4;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 21px;
+    padding: 0 16px;
+    transition: all 0.3s ease;
+    font-feature-settings: 'dlig';
+}
+
+.custom-btn:hover {
+    background-color: #0d7ab8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(18, 148, 212, 0.3);
+}
+
+.custom-btn:active {
+    background-color: #0a6396;
+    transform: translateY(0);
+}
+
+.custom-btn:focus {
+    background-color: #1294d4;
+    box-shadow: 0 0 0 0.2rem rgba(18, 148, 212, 0.5);
+}
+
+/* Botão container */
+.d-grid {
+    padding: 12px 16px;
+}
+
+/* Link de login */
+.login-link {
+    font-size: 14px;
+    font-weight: 400;
+    color: #91b8c9;
+    line-height: 21px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-feature-settings: 'dlig';
+}
+
+.login-link:hover {
+    color: #1294d4;
+    text-decoration: none;
+}
+
+/* Container do Logo */
+.logo-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a2b33;
+    border-left: 1px solid #335466;
+}
+
+.logo-image {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+/* Responsividade */
+@media (max-width: 991px) {
+    .form-card {
+        max-width: 100%;
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-title {
+        font-size: 24px;
+        line-height: 30px;
+    }
+    
+    .form-card {
+        padding: 20px;
+    }
+}

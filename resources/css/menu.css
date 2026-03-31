@@ -1,0 +1,270 @@
+/* Reset e configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #121c21;
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+/* Header Styles */
+.site-header {
+    background-color: #121c21;
+    border-bottom: 1px solid #e5e8eb;
+    padding: 12px 40px 13px;
+}
+
+.logo-box {
+    width: 57px;
+    height: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.site-name {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    color: #ffffff;
+    margin: 0;
+    font-feature-settings: 'dlig';
+}
+
+.dashboard-link {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #ffffff;
+    text-decoration: none;
+    font-feature-settings: 'dlig';
+}
+
+.user-icon-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #243d47;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-icon-btn:hover {
+    background-color: #2d4a56;
+}
+
+/* Main Content */
+.main-content {
+    padding: 20px 160px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 16px;
+    margin-bottom: 0;
+}
+
+.hero-title {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-feature-settings: 'dlig';
+}
+
+.hero-description {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    color: #91b8c9;
+    margin: 0;
+    font-feature-settings: 'dlig';
+}
+
+/* Modules Card */
+.modules-card {
+    background-color: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.modules-header {
+    padding: 16px 16px 8px;
+}
+
+.modules-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    color: #ffffff;
+    margin: 0;
+    font-feature-settings: 'dlig';
+}
+
+/* Module Item */
+.module-item {
+    background-color: #121c21;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 72px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.module-item:hover {
+    background-color: #1a2b33;
+}
+
+a.module-item {
+    display: flex;
+}
+
+.module-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.module-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #243d47;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.module-info {
+    flex: 1;
+}
+
+.module-name {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #ffffff;
+    margin: 0 0 4px 0;
+    font-feature-settings: 'dlig';
+}
+
+.module-description {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    color: #91b8c9;
+    margin: 0;
+    font-feature-settings: 'dlig';
+}
+
+.module-status {
+    min-height: 21px;
+    display: flex;
+    align-items: center;
+}
+
+.status-badge {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #ffffff;
+    font-feature-settings: 'dlig';
+}
+
+.status-badge.completed {
+    white-space: nowrap;
+}
+
+/* Responsividade */
+@media (max-width: 1400px) {
+    .main-content {
+        padding: 20px 80px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .main-content {
+        padding: 20px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        padding: 12px 20px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+        line-height: 35px;
+    }
+
+    .module-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .module-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .module-status {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .site-name {
+        font-size: 16px;
+    }
+
+    .logo-box {
+        width: 40px;
+        height: 40px;
+    }
+
+    .hero-title {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .module-name {
+        font-size: 15px;
+    }
+
+    .module-description {
+        font-size: 13px;
+        line-height: 19px;
+    }
+}
