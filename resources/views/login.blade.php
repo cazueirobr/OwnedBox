@@ -29,17 +29,27 @@
                         </div>
 
                         <!-- Formulário -->
-                        <form>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form method="POST" action="{{ route('login.submit') }}">
+                            @csrf
                             <!-- Email -->
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control custom-input" id="email" placeholder="Digite seu e-mail">
+                                <input type="email" class="form-control custom-input" id="email" name="email" value="{{ old('email') }}" placeholder="Digite seu e-mail" required autofocus>
                             </div>
 
                             <!-- Password -->
                             <div class="mb-4">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control custom-input" id="password" placeholder="Digite sua senha">
+                                <input type="password" class="form-control custom-input" id="password" name="password" placeholder="Digite sua senha" required>
                             </div>
 
                             <!-- Botão Log in -->
@@ -49,7 +59,7 @@
 
                             <!-- Link de Registro -->
                             <div class="text-center">
-                                <a href="#" class="login-link">Não tem uma conta? registre-se</a>
+                                <!-- <a href="{{ route('users.create') }}" class="login-link">Não tem uma conta? registre-se</a> -->
                             </div>
                         </form>
                     </div>
