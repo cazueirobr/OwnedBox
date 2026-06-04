@@ -1,0 +1,8 @@
+services:
+  sqli-login-lab-php:
+    build: .
+    container_name: sqli-login-lab-php
+    ports:
+      - "5000:80"
+    environment:
+      FLAG_ID: ${FLAG_ID:-ACT{default-user-id}}

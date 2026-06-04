@@ -1,0 +1,9 @@
+services:
+  file-upload-lab-php:
+    build: .
+    ports:
+      - "${LAB_PORT:-5000}:80"
+    environment:
+      FLAG_VALUE: ${FLAG_VALUE:-default-file-upload-flag}
+      APACHE_RUN_USER: www-data
+      APACHE_RUN_GROUP: www-data

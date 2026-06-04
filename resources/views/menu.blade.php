@@ -38,7 +38,7 @@
                         </div>
 
                         <!-- XSS Module -->
-                        <a href="tela4" class="module-item">
+                        <a href="{{ route('xss') }}" class="module-item">
                             <div class="module-content">
                                 <div class="module-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,13 +51,15 @@
                                 </div>
                             </div>
                             <div class="module-status">
-                                <span class="status-badge completed">Concluido ✅</span>
+                                @if (in_array('xss', $completedModules))
+                                    <span class="status-badge completed">Concluido ✅</span>
+                                @endif
                             </div>
                         </a>
 
                         <!-- File Upload Module -->
-                        
-                        <a href="tela4" class="module-item">
+
+                        <a href="{{ route('fileupload') }}" class="module-item">
                             <div class="module-content">
                                 <div class="module-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,13 +72,15 @@
                                 </div>
                             </div>
                             <div class="module-status">
-                                <span class="status-badge completed">Concluido ✅</span>
+                                @if (in_array('fileupload', $completedModules))
+                                    <span class="status-badge completed">Concluido ✅</span>
+                                @endif
                             </div>
-</a>
+                        </a>
 
 
                         <!-- SQLI Module -->
-                        <a href="tela4" class="module-item">
+                        <a href="{{ route('sql') }}" class="module-item">
                             <div class="module-content">
                                 <div class="module-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,7 +93,9 @@
                                 </div>
                             </div>
                             <div class="module-status">
-                                <!-- Sem status -->
+                                @if (in_array('sql', $completedModules))
+                                    <span class="status-badge completed">Concluido ✅</span>
+                                @endif
                             </div>
                         </a>
                     </div>
