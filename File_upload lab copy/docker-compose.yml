@@ -1,0 +1,9 @@
+services:
+  file-upload-rce-lab:
+    build: .
+    ports:
+      - "5000:80"
+    environment:
+      FLAG_VALUE: ${FLAG_VALUE:-ACT{file-upload-rce-lab}}
+      APACHE_RUN_USER: www-data
+      APACHE_RUN_GROUP: www-data

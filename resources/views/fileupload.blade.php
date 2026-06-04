@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQL Injection Vulnerability - OwnedBox</title>
-    
+    <title>File Upload Vulnerability - OwnedBox</title>
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts - Space Grotesk -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     @vite('resources/css/modulo.css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -30,7 +30,7 @@
                     <div class="content-card">
                         <!-- Hero Section -->
                         <div class="hero-section">
-                            <h2 class="page-title">Vulnerabilidade de SQL Injection</h2>
+                            <h2 class="page-title">Vulnerabilidade de Upload de Arquivos</h2>
                             <p class="page-level">Nível: Intermediário</p>
                         </div>
 
@@ -39,7 +39,7 @@
                             <h3 class="section-title">Descrição</h3>
                         </div>
                         <div class="section-content">
-                            <p class="section-text">SQL Injection é uma técnica de injeção de código usada para atacar aplicações que utilizam bancos de dados, na qual comandos SQL maliciosos são inseridos em campos de entrada para execução (por exemplo, para extrair o conteúdo do banco de dados para o atacante).</p>
+                            <p class="section-text">Vulnerabilidades de upload de arquivos ocorrem quando uma aplicação web aceita arquivos enviados pelo usuário sem validar adequadamente o tipo, conteúdo ou extensão. Isso pode permitir o upload de arquivos maliciosos (como webshells) que, ao serem executados pelo servidor, concedem ao atacante execução remota de código.</p>
                         </div>
 
                         <!-- Practice Section -->
@@ -47,7 +47,7 @@
                             <h3 class="section-title">Prática</h3>
                         </div>
                         <div class="section-content">
-                            <p class="section-text">Para praticar a exploração desta vulnerabilidade, gere uma instância de vítima e tente obter o token de segurança.</p>
+                            <p class="section-text">Gere uma instância de vítima. A aplicação permite enviar arquivos <code>.php</code> e executá-los. Faça upload de uma webshell, liste arquivos no servidor e leia a flag armazenada em <code>uploads/flag.txt</code>.</p>
                         </div>
                         <div class="button-container">
                             <button id="btn-generate-victim" class="btn-generate">Gerar Vítima</button>
@@ -86,7 +86,7 @@
         btn.textContent = 'Gerando...';
         resultBox.innerHTML = '<span>Iniciando vítima...</span>';
 
-        fetch('/lab/sql/generate-victim', {
+        fetch('/lab/fileupload/generate-victim', {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -122,17 +122,17 @@
                 resultBox.innerHTML = '<span style="color:red">' + (data.message || 'Erro ao iniciar laboratório') + '</span>';
             }
         })
-.catch(error => {
-    console.error(error);
+        .catch(error => {
+            console.error(error);
 
-    let message = error && error.message ? error.message : 'Erro ao iniciar laboratório';
+            let message = error && error.message ? error.message : 'Erro ao iniciar laboratório';
 
-    if (error && error.output_up) {
-        message += '<br><pre style="white-space: pre-wrap;">' + error.output_up.join("\n") + '</pre>';
-    }
+            if (error && error.output_up) {
+                message += '<br><pre style="white-space: pre-wrap;">' + error.output_up.join("\n") + '</pre>';
+            }
 
-    resultBox.innerHTML = '<span style="color:red">' + message + '</span>';
-})
+            resultBox.innerHTML = '<span style="color:red">' + message + '</span>';
+        })
         .finally(() => {
             btn.disabled = false;
             btn.textContent = 'Gerar Vítima';
@@ -147,7 +147,7 @@
         btn.disabled = true;
         btn.textContent = 'Validando...';
 
-        fetch('/lab/sql/validate-token', {
+        fetch('/lab/fileupload/validate-token', {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),

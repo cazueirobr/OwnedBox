@@ -14,6 +14,19 @@
     <main class="main-content">
         <div class="container-fluid">
             <div class="row g-1 justify-content-center">
+                <aside class="col-12 col-lg-auto sidebar">
+                    <div class="progress-card">
+                        <div class="progress-header">
+                            <span class="progress-label">Progresso</span>
+                            <span class="progress-value">{{ count($completedModules ?? []) }}/{{ $totalModules ?? 0 }} módulos ({{ $progressPercent ?? 0 }}%)</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-custom">
+                                <div class="progress-bar-fill" style="width: {{ $progressPercent ?? 0 }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
                 <div class="col-12 col-lg">
                     <div class="content-area">
                         <div class="page-header">

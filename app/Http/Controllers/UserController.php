@@ -42,9 +42,18 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-    public function edit(User $user)
+    public function edit()
     {
-        return view('perfil', compact('user'));
+        $user = auth()->user();
+        $completed = $user->completedModuleKeys();
+        $total = count(LabController::moduleKeys());
+
+        return view('perfil', [
+            'user'             => $user,
+            'completedModules' => $completed,
+            'totalModules'     => $total,
+            'progressPercent'  => $total > 0 ? (int) round(count($completed) / $total * 100) : 0,
+        ]);
     }
 
     public function update(Request $request, User $user)
