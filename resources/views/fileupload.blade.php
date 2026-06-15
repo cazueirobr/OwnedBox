@@ -42,6 +42,95 @@
                             <p class="section-text">Vulnerabilidades de upload de arquivos ocorrem quando uma aplicação web aceita arquivos enviados pelo usuário sem validar adequadamente o tipo, conteúdo ou extensão. Isso pode permitir o upload de arquivos maliciosos (como webshells) que, ao serem executados pelo servidor, concedem ao atacante execução remota de código.</p>
                         </div>
 
+                        @verbatim
+                        <!-- Why it's dangerous -->
+                        <div class="section-header">
+                            <h3 class="section-title">Por que é perigosa?</h3>
+                        </div>
+                        <div class="section-content">
+                            <div class="danger-box">
+                                <p class="box-title">⚠️ Pode levar à execução remota de código (RCE)</p>
+                                <p class="section-text">Se o atacante consegue enviar um arquivo de código (como <code class="inline-code">.php</code>) e depois acessá-lo pelo navegador, o servidor executa esse código. A partir daí ele pode:</p>
+                                <ul class="guide-list">
+                                    <li><strong>Rodar comandos no servidor</strong> através de uma "webshell".</li>
+                                    <li><strong>Assumir o controle total</strong> da aplicação e do servidor.</li>
+                                    <li><strong>Ler arquivos sensíveis</strong> (senhas, banco de dados, código-fonte).</li>
+                                    <li><strong>Usar o servidor como ponte</strong> para atacar a rede interna ou hospedar malware/phishing.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Vulnerable code -->
+                        <div class="section-header">
+                            <h3 class="section-title">Exemplo de código vulnerável</h3>
+                        </div>
+                        <div class="section-content">
+                            <p class="section-text">O código abaixo aceita <strong>qualquer arquivo</strong> e o salva numa pasta pública, mantendo o nome original:</p>
+                            <div class="code-block vulnerable">
+                                <div class="code-header">✗ Vulnerável — PHP</div>
+                                <pre><code><span class="line"><span class="cmt">// Nenhuma checagem de tipo, extensão ou conteúdo</span></span>
+<span class="line">$nomeArquivo = $_FILES['arquivo']['name'];</span>
+<span class="line"></span>
+<span class="line bad">move_uploaded_file(</span>
+<span class="line bad">    $_FILES['arquivo']['tmp_name'],</span>
+<span class="line bad">    "uploads/" . $nomeArquivo</span>
+<span class="line bad">);</span></code></pre>
+                            </div>
+                        </div>
+
+                        <!-- How the attack works -->
+                        <div class="section-header">
+                            <h3 class="section-title">Como o ataque funciona</h3>
+                        </div>
+                        <div class="section-content">
+                            <p class="section-text">O atacante envia um arquivo chamado <code class="inline-code">shell.php</code> com o conteúdo abaixo:</p>
+                            <div class="code-block vulnerable">
+                                <div class="code-header">✗ shell.php (webshell)</div>
+                                <pre><code><span class="line bad">&lt;?php system($_GET['cmd']); ?&gt;</span></code></pre>
+                            </div>
+                            <p class="section-text" style="margin-top: 10px;">Depois, basta acessar o arquivo pelo navegador para executar comandos no servidor:</p>
+                            <div class="code-block vulnerable">
+                                <div class="code-header">✗ Acesso no navegador</div>
+                                <pre><code><span class="line bad">https://site.com/uploads/shell.php?cmd=cat /etc/passwd</span></code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Solution -->
+                        <div class="section-header">
+                            <h3 class="section-title">Como se proteger (Solução)</h3>
+                        </div>
+                        <div class="section-content">
+                            <p class="section-text">Valide o arquivo por <strong>lista branca</strong> (só o que é permitido), confira o tipo real e <strong>renomeie</strong> o arquivo antes de salvar:</p>
+                            <div class="code-block secure">
+                                <div class="code-header">✓ Seguro — PHP</div>
+                                <pre><code><span class="line"><span class="cmt">// 1) Só aceita extensões da lista branca</span></span>
+<span class="line">$permitidas = ['jpg', 'png', 'gif'];</span>
+<span class="line">$ext = strtolower(pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION));</span>
+<span class="line"></span>
+<span class="line"><span class="cmt">// 2) Confere o tipo real do conteúdo (MIME)</span></span>
+<span class="line">$mime = mime_content_type($_FILES['arquivo']['tmp_name']);</span>
+<span class="line"></span>
+<span class="line good">if (!in_array($ext, $permitidas) || strpos($mime, 'image/') !== 0) {</span>
+<span class="line good">    die('Arquivo não permitido');</span>
+<span class="line good">}</span>
+<span class="line"></span>
+<span class="line"><span class="cmt">// 3) Gera um nome aleatório (impede sobrescrita e execução)</span></span>
+<span class="line good">$novoNome = bin2hex(random_bytes(16)) . '.' . $ext;</span>
+<span class="line">move_uploaded_file($_FILES['arquivo']['tmp_name'], "uploads/" . $novoNome);</span></code></pre>
+                            </div>
+                            <div class="info-box" style="margin-top: 12px;">
+                                <p class="box-title">✓ Boas práticas</p>
+                                <ul class="guide-list">
+                                    <li><strong>Lista branca</strong> de extensões e tipos MIME — nunca uma lista negra.</li>
+                                    <li><strong>Renomeie</strong> o arquivo com um nome aleatório.</li>
+                                    <li><strong>Salve fora da raiz web</strong> ou em uma pasta onde o PHP não seja executado.</li>
+                                    <li><strong>Limite o tamanho</strong> e, para imagens, reprocesse-as para remover código embutido.</li>
+                                    <li><strong>Sirva os arquivos</strong> por um script controlado, em vez de link direto.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        @endverbatim
+
                         <!-- Practice Section -->
                         <div class="section-header">
                             <h3 class="section-title">Prática</h3>
