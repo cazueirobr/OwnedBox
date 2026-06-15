@@ -1,4 +1,5 @@
 /* Reset e configurações gerais */
+/* General reset and settings */
 * {
     margin: 0;
     padding: 0;
@@ -248,7 +249,183 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(18, 148, 212, 0.25);
 }
 
+/* Guia de conteúdo: contexto, perigo, código e solução */
+/* Content guide: context, danger, code and solution */
+
+/* Caixa de destaque de perigo */
+/* Danger highlight box */
+.danger-box {
+    background-color: #2a1518;
+    border: 1px solid #c0392b;
+    border-left: 4px solid #e74c3c;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 4px;
+}
+
+.danger-box .box-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ff6b5e;
+    margin-bottom: 8px;
+}
+
+.danger-box .section-text {
+    color: #f3d2cd;
+}
+
+/* Caixa de solução / dica */
+/* Solution / tip box */
+.info-box {
+    background-color: #102a1e;
+    border: 1px solid #1e7a4d;
+    border-left: 4px solid #2ecc71;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 4px;
+}
+
+.info-box .box-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #5fe0a0;
+    margin-bottom: 8px;
+}
+
+.info-box .section-text {
+    color: #cfeedd;
+}
+
+/* Listas do guia */
+/* Guide lists */
+.guide-list {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+.guide-list li {
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-feature-settings: 'dlig';
+}
+
+.guide-list li strong {
+    color: #7fd4ff;
+}
+
+/* Código inline */
+/* Inline code */
+.inline-code {
+    background-color: #243d47;
+    border: 1px solid #335466;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    color: #7fd4ff;
+}
+
+/* Bloco de código estilo "review do GitHub" (com numeração de linhas) */
+/* GitHub-review-style code block (with line numbers) */
+.code-block {
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.code-block.vulnerable {
+    border-color: #c0392b;
+}
+
+.code-block.secure {
+    border-color: #1e7a4d;
+}
+
+.code-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border-bottom: 1px solid #30363d;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.code-block.vulnerable .code-header {
+    background-color: #2a1518;
+    color: #ff6b5e;
+}
+
+.code-block.secure .code-header {
+    background-color: #102a1e;
+    color: #5fe0a0;
+}
+
+.code-block pre {
+    margin: 0;
+    overflow-x: auto;
+}
+
+.code-block code {
+    display: block;
+    min-width: max-content;
+    padding: 8px 0;
+    /* deixa o navegador colapsar as quebras de linha entre os <span class="line"> */
+    /* lets the browser collapse the line breaks between the <span class="line"> */
+    white-space: normal;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    line-height: 22px;
+    color: #c9d1d9;
+    counter-reset: line;
+}
+
+/* Cada linha de código vira uma "linha" numerada */
+/* Each code line becomes a numbered "row" */
+.code-block .line {
+    display: block;
+    white-space: pre;
+    padding-right: 16px;
+}
+
+.code-block .line::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 30px;
+    margin-right: 16px;
+    padding-right: 10px;
+    text-align: right;
+    color: #6e7681;
+    border-right: 1px solid #21262d;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Linhas destacadas como num diff do GitHub */
+/* Lines highlighted like a GitHub diff */
+.code-block .line.bad {
+    background-color: rgba(248, 81, 73, 0.15);
+    box-shadow: inset 3px 0 0 #f85149;
+}
+
+.code-block .line.good {
+    background-color: rgba(63, 185, 80, 0.15);
+    box-shadow: inset 3px 0 0 #3fb950;
+}
+
+.code-block .cmt {
+    color: #8b949e;
+    font-style: italic;
+}
+
 /* Responsividade */
+/* Responsiveness */
 @media (max-width: 1400px) {
     .main-content {
         padding: 20px 80px;
@@ -296,6 +473,16 @@ body {
     }
 
     .section-text {
+        font-size: 15px;
+        line-height: 22px;
+    }
+
+    .code-block code {
+        font-size: 13px;
+        line-height: 20px;
+    }
+
+    .guide-list li {
         font-size: 15px;
         line-height: 22px;
     }
