@@ -8,6 +8,7 @@
                         <img src="/img/logo_branco_texto.png" alt="OwnedBox" class="header-logo">
                     </div>
                     <!-- Nome do Site -->
+                    <!-- Site Name -->
                     <h1 class="site-name">OwnedBox</h1>
                 </div>
             </div>

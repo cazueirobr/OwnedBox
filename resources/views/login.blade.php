@@ -21,14 +21,17 @@
         <div class="container-fluid">
             <div class="row align-items-center min-vh-100">
                 <!-- Coluna do Formulário (Esquerda) -->
+                <!-- Form Column (Left) -->
                 <div class="col-12 col-lg-6">
                     <div class="form-card">
                         <!-- Título -->
+                        <!-- Title -->
                         <div class="mb-4">
                             <h1 class="form-title text-center">Bem-Vindo</h1>
                         </div>
 
                         <!-- Formulário -->
+                        <!-- Form -->
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul class="mb-0">
@@ -53,22 +56,26 @@
                             </div>
 
                             <!-- Botão Log in -->
+                            <!-- Log in Button -->
                             <div class="d-grid mb-3">
                                 <button type="submit" class="btn btn-primary custom-btn">Log in</button>
                             </div>
 
                             <!-- Link de Registro -->
+                            <!-- Registration link -->
                             <div class="text-center">
-                                <!-- <a href="{{ route('users.create') }}" class="login-link">Não tem uma conta? registre-se</a> -->
+                                <a href="{{ route('users.create') }}" class="login-link">Você não tem uma conta? Clique aqui para se registrar</a>
                             </div>
                         </form>
                     </div>
                 </div>
 
                 <!-- Coluna do Logo (Direita) -->
+                <!-- Logo Column (Right) -->
                 <div class="col-12 col-lg-6 d-none d-lg-flex">
                     <div class="logo-container">
                         <!-- Substitua o src abaixo com o caminho do seu logo -->
+                        <!-- Replace the src below with the path to your logo -->
                         <img src="/img/logo_branco_texto.png" alt="Logo" class="logo-image">
                     </div>
                 </div>

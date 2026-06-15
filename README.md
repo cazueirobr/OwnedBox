@@ -1,62 +1,215 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!--   OwnedBox · Landing page (README)                               -->
+<!--   Tema: dark #121c21 · acento #1294d4 · fonte Space Grotesk      -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<div align="center">
+
+<img src="public/img/logo_branco_texto.png" alt="OwnedBox" width="280" />
+
+<h1>OwnedBox</h1>
+
+<p><strong>Plataforma de laboratórios práticos de segurança ofensiva.</strong><br/>
+Aprenda explorando vulnerabilidades reais — <em>SQL Injection</em>, <em>XSS</em> e <em>File Upload</em> — em um ambiente controlado.</p>
+
+<p>
+  <img alt="PHP" src="https://img.shields.io/badge/PHP-8.3-1294d4?style=for-the-badge&logo=php&logoColor=white&labelColor=121c21" />
+  <img alt="Laravel" src="https://img.shields.io/badge/Laravel-13-1294d4?style=for-the-badge&logo=laravel&logoColor=white&labelColor=121c21" />
+  <img alt="SQLite" src="https://img.shields.io/badge/SQLite-DB-1294d4?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=121c21" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-8-1294d4?style=for-the-badge&logo=vite&logoColor=white&labelColor=121c21" />
+  <img alt="License" src="https://img.shields.io/badge/Licen%C3%A7a-MIT-1294d4?style=for-the-badge&labelColor=121c21" />
 </p>
 
-## About Laravel
+</div>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🎯 Sobre o projeto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+O **OwnedBox** é uma plataforma de treinamento em segurança da informação construída em **Laravel**. Cada módulo coloca o usuário diante de uma aplicação propositalmente vulnerável: o objetivo é **gerar uma vítima**, explorar a falha, capturar o token de prova e validá-lo para concluir o laboratório.
 
-## Learning Laravel
+A interface acompanha o progresso de cada usuário, mostrando módulos concluídos e percentual de conclusão no perfil.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+> ⚠️ **Aviso de segurança**
+> Este projeto contém código **intencionalmente vulnerável** para fins **educacionais**. Use apenas em ambiente local/isolado. **Nunca** exponha esta aplicação na internet pública.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 🧪 Laboratórios disponíveis
 
-## Agentic Development
+| Módulo | Vulnerabilidade | Rota | Status |
+| :----- | :-------------- | :--- | :----: |
+| 💉 **SQL Injection** | Injeção de SQL em formulário de login | `/sql` | ✅ |
+| 🔓 **Cross-Site Scripting** | XSS refletido / via cookie | `/xss` | ✅ |
+| 📁 **File Upload** | Upload de arquivo sem validação | `/fileupload` | ✅ |
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Cada laboratório expõe dois endpoints unificados:
+
+- `POST /lab/{lab}/generate-victim` — gera uma vítima para o cenário
+- `POST /lab/{lab}/validate-token` — valida o token de conclusão
+
+---
+
+## 🛠️ Stack
+
+- **Backend:** PHP 8.3 · Laravel 13 · Laravel Tinker
+- **Banco:** SQLite (padrão, zero configuração)
+- **Frontend:** Blade · Bootstrap · Vite · Tailwind 4 · fonte *Space Grotesk*
+- **Qualidade:** Pint · PHPUnit · Pail (logs em tempo real)
+
+---
+
+## ✅ Pré-requisitos
+
+Antes de começar, garanta que você tem instalado:
+
+- [PHP **8.3+**](https://www.php.net/downloads) com as extensões `pdo_sqlite`, `mbstring`, `openssl` e `xml`
+- [Composer 2](https://getcomposer.org/)
+- [Node.js **18+**](https://nodejs.org/) e npm
+
+---
+
+## 🚀 Instalação rápida
+
+Clone o repositório e rode o setup automatizado — ele instala dependências, cria o `.env`, gera a chave da aplicação, roda as migrations e compila os assets:
 
 ```bash
-composer require laravel/boost --dev
+# 1. Clone o repositório
+git clone https://github.com/<seu-usuario>/Ownedbox.git
+cd Ownedbox
 
-php artisan boost:install
+# 2. Setup completo em um comando
+composer run setup
+
+# 3. (opcional) Popule o banco com um usuário de teste
+php artisan db:seed
+
+# 4. Suba o ambiente de desenvolvimento (server + queue + logs + vite)
+composer run dev
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Acesse 👉 **http://localhost:8000**
 
-## Contributing
+<div align="center">
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Usuário de teste (após `db:seed`) | Valor |
+| :-- | :-- |
+| **E-mail** | `test@example.com` |
+| **Senha** | `password` |
 
-## Code of Conduct
+</div>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+<details>
+<summary><strong>🔧 Instalação manual (passo a passo)</strong></summary>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<br/>
 
-## License
+Se preferir entender cada etapa em vez de usar o `composer run setup`:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# OwnedBox
->>>>>>> 48af0d62ec2c7be7ff5f4dc86ff0c4e0c84d7e19
+```bash
+# Dependências PHP
+composer install
+
+# Crie o arquivo de ambiente
+cp .env.example .env
+
+# Gere a chave da aplicação
+php artisan key:generate
+
+# Crie o banco SQLite e rode as migrations
+touch database/database.sqlite
+php artisan migrate
+
+# (opcional) Dados de teste
+php artisan db:seed
+
+# Dependências e build do frontend
+npm install
+npm run build
+
+# Inicie o servidor
+php artisan serve
+```
+
+</details>
+
+<details>
+<summary><strong>⚙️ Configuração do <code>.env</code></strong></summary>
+
+<br/>
+
+O projeto já vem pronto para rodar com **SQLite** sem configuração extra. As principais variáveis:
+
+```env
+APP_NAME=OwnedBox
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+# Banco padrão: SQLite (arquivo local, nada para configurar)
+DB_CONNECTION=sqlite
+
+# Sessão / cache / filas usam o banco
+SESSION_DRIVER=database
+CACHE_STORE=database
+QUEUE_CONNECTION=database
+```
+
+> 💡 Quer usar **MySQL/PostgreSQL**? Troque `DB_CONNECTION` e descomente/preencha
+> `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` e `DB_PASSWORD` no `.env`.
+
+</details>
+
+<details>
+<summary><strong>📂 Estrutura do projeto</strong></summary>
+
+<br/>
+
+```
+Ownedbox/
+├── app/Http/Controllers/   # AuthController, UserController, LabController
+├── resources/
+│   ├── views/              # Blade: login, menu, perfil, sql, xss, fileupload
+│   └── css/                # styles, menu, modulo, perfil (tema OwnedBox)
+├── routes/web.php          # Rotas de auth, menu, perfil e laboratórios
+├── database/
+│   ├── migrations/         # Esquema do banco
+│   └── seeders/            # Usuário de teste
+└── public/img/             # Logo e assets estáticos
+```
+
+</details>
+
+---
+
+## 🧰 Comandos úteis
+
+```bash
+composer run dev     # server + queue + logs + vite, tudo junto
+composer run test    # roda a suíte de testes (PHPUnit)
+php artisan migrate  # aplica migrations
+npm run dev          # apenas o Vite em modo watch
+./vendor/bin/pint    # formata o código (estilo Laravel)
+```
+
+---
+
+## 🤝 Contribuindo
+
+1. Faça um *fork* do projeto
+2. Crie sua branch: `git checkout -b feature/minha-feature`
+3. Commit: `git commit -m "feat: minha feature"`
+4. Push: `git push origin feature/minha-feature`
+5. Abra um *Pull Request*
+
+---
+
+## 📜 Licença
+
+Distribuído sob a licença **MIT**. Sinta-se livre para usar e modificar para fins educacionais.
+
+<div align="center">
+<sub>Feito com 💙 para estudo de segurança ofensiva · <strong>OwnedBox</strong></sub>
+</div>

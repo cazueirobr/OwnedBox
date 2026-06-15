@@ -11,13 +11,20 @@ class LabController extends Controller
 {
     /**
      * Configuração centralizada de cada laboratório.
+     * Centralized configuration for each lab.
      *
      * Para adicionar um novo lab basta criar mais uma entrada com:
+     * To add a new lab, just create one more entry with:
      *  - path:          pasta do lab na raiz do projeto (contém docker-compose.yml)
+     *                   lab folder at the project root (contains docker-compose.yml)
      *  - project_prefix:prefixo do COMPOSE_PROJECT_NAME para isolar instâncias
+     *                   COMPOSE_PROJECT_NAME prefix to isolate instances
      *  - flag_env:      nome da variável de ambiente que recebe a flag
+     *                   name of the environment variable that receives the flag
      *  - flag_format:   string com placeholder {token} que define o formato da flag
+     *                   string with the {token} placeholder that defines the flag format
      *  - session_key:   chave usada na sessão para guardar a flag gerada
+     *                   session key used to store the generated flag
      */
     private const LABS = [
         'sql' => [
@@ -148,6 +155,8 @@ class LabController extends Controller
     /**
      * Lista das chaves de módulos disponíveis. Usado por views (menu, perfil)
      * para saber quantos módulos existem no total.
+     * List of available module keys. Used by views (menu, perfil)
+     * to know how many modules exist in total.
      */
     public static function moduleKeys(): array
     {
