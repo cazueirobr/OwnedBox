@@ -208,8 +208,8 @@ npm run dev          # apenas o Vite em modo watch
 
 ## 📜 Licença
 
-Distribuído sob a licença **MIT**. Sinta-se livre para usar e modificar para fins educacionais.
+Software livre distribuído sob a licença **MIT**. Você pode usar, copiar, modificar e distribuir o projeto livremente, inclusive para fins comerciais, mantendo o aviso de copyright original. Veja o arquivo [LICENSE](LICENSE) para o texto completo.
 
 <div align="center">
-<sub>Feito com 💙 para estudo de segurança ofensiva · <strong>OwnedBox</strong></sub>
+<sub>Feito com 💙 · <strong>OwnedBox</strong></sub>
 </div>

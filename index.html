@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwnedBox · Instalação e Configuração</title>
+    <meta name="description" content="OwnedBox — plataforma de laboratórios práticos de segurança ofensiva. Guia de instalação e configuração.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #121c21;
+            --surface: #1a2b33;
+            --surface-2: #243d47;
+            --border: #335466;
+            --accent: #1294d4;
+            --accent-hover: #0d7ab8;
+            --text: #ffffff;
+            --muted: #91b8c9;
+            --code-bg: #0d1117;
+            --code-border: #30363d;
+            --code-text: #c9d1d9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-feature-settings: 'dlig';
+        }
+
+        a { color: var(--accent); text-decoration: none; transition: color .3s ease; }
+        a:hover { color: var(--accent-hover); }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: rgba(18, 28, 33, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+        .site-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand img { height: 36px; width: auto; object-fit: contain; }
+        .brand span { font-weight: 700; font-size: 18px; color: var(--text); }
+        .nav-links { display: flex; gap: 22px; }
+        .nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 0 56px;
+            border-bottom: 1px solid var(--border);
+        }
+        .hero img.logo { max-width: 280px; width: 60%; margin-bottom: 28px; }
+        .hero h1 { font-size: 40px; font-weight: 700; margin-bottom: 16px; }
+        .hero p { color: var(--muted); font-size: 18px; max-width: 640px; margin: 0 auto 32px; }
+        .hero .badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
+        .hero .badges img { height: 28px; }
+        .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-block;
+            border-radius: 8px;
+            height: 44px;
+            line-height: 44px;
+            padding: 0 24px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all .3s ease;
+        }
+        .btn-primary { background-color: var(--accent); color: #fff; }
+        .btn-primary:hover { background-color: var(--accent-hover); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 8px rgba(18,148,212,.3); }
+        .btn-secondary { background-color: var(--surface-2); color: #fff; }
+        .btn-secondary:hover { background-color: #2d4a56; color: #fff; transform: translateY(-1px); }
+
+        /* Sections */
+        section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+        .section-eyebrow { color: var(--accent); font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+        h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+        section > .container > p.lead { color: var(--muted); font-size: 16px; margin-bottom: 28px; max-width: 720px; }
+
+        /* Warning box */
+        .warning-box {
+            background-color: #2a1518;
+            border: 1px solid #c0392b;
+            border-left: 4px solid #e74c3c;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 24px;
+        }
+        .warning-box strong { color: #ff6b5e; }
+        .warning-box p { color: #f3d2cd; margin-top: 4px; }
+
+        /* Cards grid (labs) */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+        .card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform .3s ease, border-color .3s ease;
+        }
+        .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+        .card .icon { font-size: 26px; margin-bottom: 10px; display: block; }
+        .card h3 { font-size: 17px; margin-bottom: 6px; }
+        .card p { color: var(--muted); font-size: 14px; }
+        .card code {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #7fd4ff;
+        }
+
+        /* Steps */
+        .step { display: flex; gap: 18px; margin-bottom: 28px; }
+        .step-num {
+            flex-shrink: 0;
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .step-body { flex: 1; min-width: 0; }
+        .step-body h3 { font-size: 17px; margin-bottom: 8px; }
+        .step-body p { color: var(--muted); font-size: 15px; margin-bottom: 8px; }
+
+        /* Code block (GitHub style) */
+        .code-block {
+            background-color: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        .code-head {
+            display: flex; align-items: center; justify-content: space-between;
+            background-color: #161b22;
+            border-bottom: 1px solid var(--code-border);
+            padding: 8px 14px;
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--code-border);
+            color: var(--muted);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .copy-btn:hover { color: #fff; border-color: var(--accent); }
+        .code-block pre { margin: 0; padding: 16px; overflow-x: auto; }
+        .code-block code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--code-text);
+            white-space: pre;
+        }
+        .code-block .cmt { color: #8b949e; font-style: italic; }
+
+        /* Details (collapsible) */
+        details {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+        details summary {
+            cursor: pointer;
+            padding: 16px 20px;
+            font-weight: 700;
+            font-size: 16px;
+            list-style: none;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        details summary::-webkit-details-marker { display: none; }
+        details summary::after { content: '+'; color: var(--accent); font-size: 22px; font-weight: 400; }
+        details[open] summary::after { content: '–'; }
+        details summary:hover { background-color: var(--surface-2); }
+        details .details-content { padding: 0 20px 20px; }
+
+        /* Info box */
+        .info-box {
+            background-color: #102a1e;
+            border: 1px solid #1e7a4d;
+            border-left: 4px solid #2ecc71;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-top: 16px;
+        }
+        .info-box strong { color: #5fe0a0; }
+        .info-box p { color: #cfeedd; font-size: 14px; margin-top: 4px; }
+
+        /* Credentials table */
+        table { width: 100%; border-collapse: collapse; margin-top: 16px; background-color: var(--surface); border-radius: 8px; overflow: hidden; }
+        th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 15px; }
+        th { color: var(--muted); font-weight: 500; }
+        td code { font-family: 'Courier New', monospace; color: #7fd4ff; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px 0; color: var(--muted); font-size: 14px; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 30px; }
+            .hero p { font-size: 16px; }
+            h2 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="brand">
+                <img src="public/img/logo_branco_texto.png" alt="OwnedBox">
+            </div>
+            <nav class="nav-links">
+                <a href="#sobre">Sobre</a>
+                <a href="#labs">Laboratórios</a>
+                <a href="#instalacao">Instalação</a>
+                <a href="#config">Configuração</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="container">
+            <img class="logo" src="public/img/logo_branco_texto.png" alt="OwnedBox">
+            <h1>Aprenda segurança ofensiva na prática</h1>
+            <p>OwnedBox é uma plataforma de laboratórios onde você explora vulnerabilidades reais — SQL Injection, XSS e File Upload — em um ambiente controlado.</p>
+            <div class="badges">
+                <img alt="PHP" src="https://img.shields.io/badge/PHP-8.3-1294d4?style=for-the-badge&logo=php&logoColor=white&labelColor=121c21">
+                <img alt="Laravel" src="https://img.shields.io/badge/Laravel-13-1294d4?style=for-the-badge&logo=laravel&logoColor=white&labelColor=121c21">
+                <img alt="SQLite" src="https://img.shields.io/badge/SQLite-DB-1294d4?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=121c21">
+                <img alt="License" src="https://img.shields.io/badge/Licen%C3%A7a-MIT-1294d4?style=for-the-badge&labelColor=121c21">
+            </div>
+            <div class="cta-group">
+                <a href="#instalacao" class="btn btn-primary">Começar instalação</a>
+                <a href="#labs" class="btn btn-secondary">Ver laboratórios</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+        <div class="container">
+            <div class="section-eyebrow">Sobre</div>
+            <h2>O que é o OwnedBox</h2>
+            <p class="lead">Plataforma de treinamento em segurança da informação construída em Laravel. Cada módulo apresenta uma aplicação propositalmente vulnerável: o objetivo é gerar uma vítima, explorar a falha, capturar o token de prova e validá-lo para concluir o laboratório. A interface acompanha o progresso de cada usuário.</p>
+            <div class="warning-box">
+                <strong>⚠️ Aviso de segurança</strong>
+                <p>Este projeto contém código intencionalmente vulnerável para fins educacionais. Use apenas em ambiente local/isolado. Nunca exponha esta aplicação na internet pública.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LABS -->
+    <section id="labs">
+        <div class="container">
+            <div class="section-eyebrow">Laboratórios</div>
+            <h2>Módulos disponíveis</h2>
+            <p class="lead">Cada laboratório expõe endpoints unificados de <code style="color:#7fd4ff">generate-victim</code> e <code style="color:#7fd4ff">validate-token</code>.</p>
+            <div class="grid">
+                <div class="card">
+                    <span class="icon">💉</span>
+                    <h3>SQL Injection</h3>
+                    <p>Injeção de SQL em formulário de login.</p>
+                    <code>/sql</code>
+                </div>
+                <div class="card">
+                    <span class="icon">🔓</span>
+                    <h3>Cross-Site Scripting</h3>
+                    <p>XSS refletido e via cookie.</p>
+                    <code>/xss</code>
+                </div>
+                <div class="card">
+                    <span class="icon">📁</span>
+                    <h3>File Upload</h3>
+                    <p>Upload de arquivo sem validação.</p>
+                    <code>/fileupload</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTALAÇÃO -->
+    <section id="instalacao">
+        <div class="container">
+            <div class="section-eyebrow">Instalação</div>
+            <h2>Coloque o OwnedBox no ar</h2>
+            <p class="lead">Pré-requisitos: <strong>PHP 8.3+</strong> (com <code style="color:#7fd4ff">pdo_sqlite</code>, <code style="color:#7fd4ff">mbstring</code>, <code style="color:#7fd4ff">openssl</code>, <code style="color:#7fd4ff">xml</code>), <strong>Composer 2</strong> e <strong>Node.js 18+</strong>.</p>
+
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h3>Clone o repositório</h3>
+                    <div class="code-block">
+                        <div class="code-head"><span>bash</span><button class="copy-btn">Copiar</button></div>
+                        <pre><code>git clone https://github.com/&lt;seu-usuario&gt;/Ownedbox.git
+cd Ownedbox</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h3>Setup completo em um comando</h3>
+                    <p>Instala dependências, cria o <code style="color:#7fd4ff">.env</code>, gera a chave, roda as migrations e compila os assets.</p>
+                    <div class="code-block">
+                        <div class="code-head"><span>bash</span><button class="copy-btn">Copiar</button></div>
+                        <pre><code>composer run setup</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h3>Suba o ambiente de desenvolvimento</h3>
+                    <p>Roda server + queue + logs + vite juntos. Acesse <a href="http://localhost:8000">http://localhost:8000</a>.</p>
+                    <div class="code-block">
+                        <div class="code-head"><span>bash</span><button class="copy-btn">Copiar</button></div>
+                        <pre><code>composer run dev</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <details>
+                <summary>🔧 Instalação manual (passo a passo)</summary>
+                <div class="details-content">
+                    <p style="color:var(--muted);margin-bottom:8px">Caso prefira entender cada etapa em vez do <code style="color:#7fd4ff">composer run setup</code>:</p>
+                    <div class="code-block">
+                        <div class="code-head"><span>bash</span><button class="copy-btn">Copiar</button></div>
+                        <pre><code><span class="cmt"># Dependências PHP</span>
+composer install
+
+<span class="cmt"># Crie o arquivo de ambiente</span>
+cp .env.example .env
+
+<span class="cmt"># Gere a chave da aplicação</span>
+php artisan key:generate
+
+<span class="cmt"># Crie o banco SQLite e rode as migrations</span>
+touch database/database.sqlite
+php artisan migrate
+
+<span class="cmt"># Dependências e build do frontend</span>
+npm install
+npm run build
+
+<span class="cmt"># Inicie o servidor</span>
+php artisan serve</code></pre>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- CONFIGURAÇÃO -->
+    <section id="config">
+        <div class="container">
+            <div class="section-eyebrow">Configuração</div>
+            <h2>Configurando o ambiente</h2>
+            <p class="lead">O projeto já vem pronto para rodar com <strong>SQLite</strong>, sem configuração extra. As principais variáveis do <code style="color:#7fd4ff">.env</code>:</p>
+            <div class="code-block">
+                <div class="code-head"><span>.env</span><button class="copy-btn">Copiar</button></div>
+                <pre><code>APP_NAME=OwnedBox
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+<span class="cmt"># Banco padrão: SQLite (arquivo local, nada para configurar)</span>
+DB_CONNECTION=sqlite
+
+<span class="cmt"># Sessão / cache / filas usam o banco</span>
+SESSION_DRIVER=database
+CACHE_STORE=database
+QUEUE_CONNECTION=database</code></pre>
+            </div>
+            <div class="info-box">
+                <strong>💡 Quer usar MySQL/PostgreSQL?</strong>
+                <p>Troque <code style="color:#7fd4ff">DB_CONNECTION</code> e preencha <code style="color:#7fd4ff">DB_HOST</code>, <code style="color:#7fd4ff">DB_PORT</code>, <code style="color:#7fd4ff">DB_DATABASE</code>, <code style="color:#7fd4ff">DB_USERNAME</code> e <code style="color:#7fd4ff">DB_PASSWORD</code> no <code style="color:#7fd4ff">.env</code>.</p>
+            </div>
+
+            <details>
+                <summary>🧰 Comandos úteis</summary>
+                <div class="details-content">
+                    <div class="code-block">
+                        <div class="code-head"><span>bash</span><button class="copy-btn">Copiar</button></div>
+                        <pre><code>composer run dev     <span class="cmt"># server + queue + logs + vite</span>
+composer run test    <span class="cmt"># roda a suíte de testes (PHPUnit)</span>
+php artisan migrate  <span class="cmt"># aplica migrations</span>
+npm run dev          <span class="cmt"># apenas o Vite em modo watch</span>
+./vendor/bin/pint    <span class="cmt"># formata o código (estilo Laravel)</span></code></pre>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            Software livre sob licença MIT · <strong>OwnedBox</strong>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var code = btn.closest('.code-block').querySelector('code');
+                navigator.clipboard.writeText(code.innerText).then(function () {
+                    var original = btn.textContent;
+                    btn.textContent = 'Copiado!';
+                    setTimeout(function () { btn.textContent = original; }, 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
