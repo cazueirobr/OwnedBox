@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['user_id', 'module_key', 'completed_at'])]
+#[Fillable(['user_id', 'module_key', 'completed_at', 'duration_seconds'])]
 class ModuleCompletion extends Model
 {
     protected $casts = [

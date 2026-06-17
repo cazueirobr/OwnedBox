@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-auto">
-                <div class="d-flex align-items-center gap-3">
+                <a href="{{ route('menu') }}" class="d-flex align-items-center gap-3 text-decoration-none">
                     <!-- Logo -->
                     <div class="logo-box">
                         <img src="/img/logo_branco_texto.png" alt="OwnedBox" class="header-logo">
@@ -10,11 +10,13 @@
                     <!-- Nome do Site -->
                     <!-- Site Name -->
                     <h1 class="site-name">OwnedBox</h1>
-                </div>
+                </a>
             </div>
             <div class="col d-flex align-items-center justify-content-end gap-4">
                 <!-- Dashboard Link -->
-                <span class="dashboard-link">Dashboard</span>
+                <a href="{{ route('menu') }}" class="dashboard-link">Dashboard</a>
+                <!-- Statistics Link -->
+                <a href="{{ route('estatisticas') }}" class="dashboard-link">Estatísticas</a>
                 <!-- User Dropdown -->
                 @auth
                 <div class="dropdown">

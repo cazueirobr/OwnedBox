@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-FLAG_VALUE="${FLAG_VALUE:-ACT{file-upload-rce-lab}}"
+FLAG_VALUE="${FLAG_VALUE:-default-file-upload-flag}"
 UPLOAD_DIR="/var/www/html/uploads"
 
 mkdir -p "$UPLOAD_DIR"

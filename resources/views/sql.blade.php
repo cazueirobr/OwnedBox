@@ -135,7 +135,7 @@
                             <h3 class="section-title">Prática</h3>
                         </div>
                         <div class="section-content">
-                            <p class="section-text">Para praticar a exploração desta vulnerabilidade, gere uma instância de vítima e tente obter o token de segurança.</p>
+                            <p class="section-text">Gere uma instância de vítima. Faça o <strong>bypass do login</strong> injetando SQL no campo de usuário, por exemplo <code>admin' OR '1'='1' --</code>, para autenticar como <strong>admin</strong>. Após entrar, o campo <code>ID do usuário</code> exibido no painel é o <strong>token</strong> que você deve enviar abaixo.</p>
                         </div>
                         <div class="button-container">
                             <button id="btn-generate-victim" class="btn-generate">Gerar Vítima</button>
@@ -166,6 +166,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
+    const moduleStartTime = Date.now();
+
     document.getElementById('btn-generate-victim').addEventListener('click', function() {
         const btn = this;
         const resultBox = document.getElementById('flag-id-container');
@@ -243,7 +245,8 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                token: tokenInput.value
+                token: tokenInput.value,
+                duration_seconds: Math.round((Date.now() - moduleStartTime) / 1000)
             })
         })
         .then(async response => {

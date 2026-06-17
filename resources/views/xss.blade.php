@@ -133,7 +133,7 @@
                             <h3 class="section-title">Prática</h3>
                         </div>
                         <div class="section-content">
-                            <p class="section-text">Gere uma instância de vítima. A página exibida possui um campo refletido sem sanitização e armazena uma flag em um cookie acessível via JavaScript. Use um payload XSS para ler o cookie e obter o token.</p>
+                            <p class="section-text">Gere uma instância de vítima. A página reflete o parâmetro <code>message</code> no HTML <strong>sem sanitização</strong>. Injete um payload de XSS como <code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code> para ler o cookie chamado <code>flag</code> através de <code>document.cookie</code>. <strong>O valor desse cookie é o token</strong> que você deve enviar abaixo.</p>
                         </div>
                         <div class="button-container">
                             <button id="btn-generate-victim" class="btn-generate">Gerar Vítima</button>
@@ -164,6 +164,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
+    const moduleStartTime = Date.now();
+
     document.getElementById('btn-generate-victim').addEventListener('click', function() {
         const btn = this;
         const resultBox = document.getElementById('flag-id-container');
@@ -241,7 +243,8 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                token: tokenInput.value
+                token: tokenInput.value,
+                duration_seconds: Math.round((Date.now() - moduleStartTime) / 1000)
             })
         })
         .then(async response => {
