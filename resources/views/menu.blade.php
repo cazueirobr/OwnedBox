@@ -28,7 +28,7 @@
                     <!-- Hero Section -->
                     <div class="hero-section">
                         <h2 class="hero-title">Modules</h2>
-                        <p class="hero-description">Explore the modules below to learn about different types of vulnerabilities.</p>
+                        <p class="hero-description">Explore os módulos abaixo para aprender sobre diferentes tipos de vulnerabilidades.</p>
                     </div>
 
                     <!-- Modules Card -->

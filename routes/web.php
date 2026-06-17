@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LabController;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 
@@ -57,6 +58,38 @@ Route::middleware('auth')->group(function () {
             'progressPercent'  => $total > 0 ? (int) round(count($completed) / $total * 100) : 0,
         ]);
     })->name('perfil');
+    Route::get('/estatisticas', function () {
+        $user = auth()->user();
+        $completed = $user->completedModuleKeys();
+        $total = count(LabController::moduleKeys());
+
+        $completions = $user->moduleCompletions()->orderBy('completed_at')->get();
+
+        // Tempo de conclusão (em minutos) por módulo, para o gráfico.
+        // Completion time (in minutes) per module, for the chart.
+        $completionTimes = $completions
+            ->whereNotNull('duration_seconds')
+            ->map(fn ($c) => [
+                'module'  => strtoupper($c->module_key),
+                'minutes' => round($c->duration_seconds / 60, 2),
+            ])
+            ->values();
+
+        // Quantos laboratórios foram concluídos nesta semana.
+        // How many labs were completed this week.
+        $labsThisWeek = $completions
+            ->where('completed_at', '>=', Carbon::now()->startOfWeek())
+            ->count();
+
+        return view('estatisticas', [
+            'completionTimes' => $completionTimes,
+            'labsThisWeek'    => $labsThisWeek,
+            'completedModules' => $completed,
+            'totalModules'    => $total,
+            'progressPercent' => $total > 0 ? (int) round(count($completed) / $total * 100) : 0,
+        ]);
+    })->name('estatisticas');
+
     Route::get('/perfil/editar', [App\Http\Controllers\UserController::class, 'edit'])->name('perfil.edit');
     Route::post('/perfil/editar', [App\Http\Controllers\UserController::class, 'update'])->name('perfil.update');
 

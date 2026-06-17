@@ -167,6 +167,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
+    const moduleStartTime = Date.now();
+
     document.getElementById('btn-generate-victim').addEventListener('click', function() {
         const btn = this;
         const resultBox = document.getElementById('flag-id-container');
@@ -244,7 +246,8 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                token: tokenInput.value
+                token: tokenInput.value,
+                duration_seconds: Math.round((Date.now() - moduleStartTime) / 1000)
             })
         })
         .then(async response => {

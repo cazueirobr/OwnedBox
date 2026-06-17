@@ -113,7 +113,8 @@ class LabController extends Controller
         }
 
         $request->validate([
-            'token' => ['required', 'string'],
+            'token'            => ['required', 'string'],
+            'duration_seconds' => ['nullable', 'integer', 'min:0'],
         ]);
 
         $submitted = trim($request->input('token'));
@@ -131,7 +132,10 @@ class LabController extends Controller
             if ($user) {
                 ModuleCompletion::updateOrCreate(
                     ['user_id' => $user->id, 'module_key' => $lab],
-                    ['completed_at' => now()],
+                    [
+                        'completed_at'     => now(),
+                        'duration_seconds' => $request->input('duration_seconds'),
+                    ],
                 );
             }
 

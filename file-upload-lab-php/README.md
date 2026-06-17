@@ -15,7 +15,7 @@ docker compose up --build
 Passando uma flag personalizada na hora de subir o container:
 
 ```bash
-FLAG_VALUE='ACT{minha_flag_personalizada}' docker compose up --build
+FLAG_VALUE='minha-flag-personalizada' docker compose up --build
 ```
 
 Acesse:
@@ -45,7 +45,7 @@ Passando uma flag personalizada:
 
 ```bash
 podman build -t file-upload-rce-lab-php .
-podman run --rm -p 5000:80 -e FLAG_VALUE='ACT{minha_flag_personalizada}' file-upload-rce-lab-php
+podman run --rm -p 5000:80 -e FLAG_VALUE='minha-flag-personalizada' file-upload-rce-lab-php
 ```
 
 ## Payload de upload
